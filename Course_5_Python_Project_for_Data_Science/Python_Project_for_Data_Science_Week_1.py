@@ -238,21 +238,21 @@ gme_data.head()
 # Use the `requests` library to download the webpage https://www.macrotrends.net/stocks/charts/GME/gamestop/revenue. Save the text of the response as a variable named `html_data`.
 # 
 
-# In[138]:
+# In[180]:
 
 
 url = "https://www.macrotrends.net/stocks/charts/GME/gamestop/revenue"
 
-html_data  = requests.get(url).text
+html_data_gme  = requests.get(url).text
 
 
 # Parse the html data using `beautiful_soup`.
 # 
 
-# In[139]:
+# In[196]:
 
 
-soup = BeautifulSoup(html_data, 'html.parser')
+soup_gme = BeautifulSoup(html_data_gme, 'html.parser')
 
 
 # Using beautiful soup extract the table with `GameStop Quarterly Revenue` and store it into a dataframe named `gme_revenue`. The dataframe should have columns `Date` and `Revenue`. Make sure the comma and dollar sign is removed from the `Revenue` column using a method similar to what you did in Question 2.
@@ -274,23 +274,22 @@ soup = BeautifulSoup(html_data, 'html.parser')
 # </details>
 # 
 
-# In[168]:
+# In[198]:
 
 
 #First get the table rows for the second table, ie the one with index 1
-body = soup.find_all("tbody")[1]
-rows = body.find_all('tr')
-rows
+body_gme = soup_gme.find_all("tbody")[1]
+rows_gme = body_gme.find_all('tr')
 
 #Then place this data into a list
-res = []
-for tr in rows:
+res_gme = []
+for tr in rows_gme:
     td = tr.find_all('td')
-    row = [tr.text.strip() for tr in td if tr.text.strip()]
-    res.append(row)
+    row_gme = [tr.text.strip() for tr in td if tr.text.strip()]
+    res_gme.append(row_gme)
 
 #Then create the dataframe with this data in
-gme_revenue = pd.DataFrame(res, columns=["Date", "Revenue"])
+gme_revenue = pd.DataFrame(res_gme, columns=["Date", "Revenue"])
 
 #Remove comma and dollar sign
 gme_revenue["Revenue"] = gme_revenue['Revenue'].str.replace(',|\$',"")
@@ -304,7 +303,7 @@ gme_revenue = gme_revenue[gme_revenue['Revenue'] != ""]
 # Display the last five rows of the `gme_revenue` dataframe using the `tail` function. Take a screenshot of the results.
 # 
 
-# In[169]:
+# In[199]:
 
 
 gme_revenue.tail()
@@ -316,7 +315,7 @@ gme_revenue.tail()
 # Use the `make_graph` function to graph the Tesla Stock Data, also provide a title for the graph. The structure to call the `make_graph` function is `make_graph(tesla_data, tesla_revenue, 'Tesla')`. Note the graph will only show data upto June 2021.
 # 
 
-# In[142]:
+# In[175]:
 
 
 make_graph(tesla_data,tesla_revenue,'Tesla')
@@ -328,7 +327,7 @@ make_graph(tesla_data,tesla_revenue,'Tesla')
 # Use the `make_graph` function to graph the GameStop Stock Data, also provide a title for the graph. The structure to call the `make_graph` function is `make_graph(gme_data, gme_revenue, 'GameStop')`. Note the graph will only show data upto June 2021.
 # 
 
-# In[170]:
+# In[200]:
 
 
 make_graph(gme_data,gme_revenue,'GameStop')
