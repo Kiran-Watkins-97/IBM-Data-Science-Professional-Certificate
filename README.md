@@ -1,5 +1,7 @@
 # IBM-Data-Science-Professional-Certificate
-This contains submissions of my work from the Data Science course
+This contains submissions of my work from the Data Science course linked below:
+
+https://www.coursera.org/professional-certificates/ibm-data-science
 
 |Submission | Date|
 |--- | ---|
